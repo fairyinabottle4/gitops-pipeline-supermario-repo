@@ -6,12 +6,13 @@ on:
       - main
  
 env:
+  # Using simple shell arithmetic for version increment
   VERSION: $(( $(cat version.txt) + 1 ))
-  
+ 
 jobs:
   
   run_container_image_scan_on_supermario_docker_image:
-    runs-on: ubuntu-latest	
+    runs-on: ubuntu-latest  
 
     steps:
       - name: Checkout Repository
@@ -23,11 +24,13 @@ jobs:
       - name: Get Docker Image from Docker Hub
         run: |
           docker pull docker.io/fairyinabottle4/supermariogitopsproject:${{ env.VERSION }}
+          # File saved to the workspace root: /github/workspace/supermariolatestdockerimage.tar
           docker save -o supermariolatestdockerimage.tar docker.io/fairyinabottle4/supermariogitopsproject:${{ env.VERSION }}
-     
+      
       - name: Run Trivy vulnerability scanner in tarball mode
         uses: aquasecurity/trivy-action@master
         with:
-          input: /github/workspace/supermariolatestdockerimage.tar
+          # Using the relative path (just the filename)
+          input: supermariolatestdockerimage.tar
           exit-code: '1'
           severity: 'CRITICAL,HIGH'
