@@ -1,4 +1,4 @@
-name: "Build and push Super Mario Docker image with static tag to Docker Hub"
+name: "Build and push Super Mario Docker image with dynamic tag to Docker Hub"
 
 on:
   push:
@@ -22,5 +22,5 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t docker.io/fairyinabottle4/supermariogitopsproject:${{ env.VERSION }} .
-          docker push docker.io/fairyinabottle4/supermariogitopsproject:${{ env.VERSION }}
+          docker build -t docker.io/fairyinabottle4/supermariogitopsproject: ${{ env.VERSION }} .
+          docker push docker.io/fairyinabottle4/supermariogitopsproject: ${{ env.VERSION }}
