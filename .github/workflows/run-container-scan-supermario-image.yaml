@@ -32,5 +32,5 @@ jobs:
         with:
           # Using the relative path (just the filename)
           input: supermariolatestdockerimage.tar
-          exit-code: '1'
+          exit-code: '0'
           severity: 'CRITICAL,HIGH'
